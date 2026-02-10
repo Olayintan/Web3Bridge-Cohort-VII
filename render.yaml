@@ -1,0 +1,30 @@
+# Exported from Render on 2026-02-10T22:22:45Z
+version: "1"
+projects:
+- name: My project
+  environments:
+  - name: Production
+    services:
+    - type: web
+      name: n8n
+      runtime: image
+      image:
+        url: docker.n8n.io/n8nio/n8n:latest
+      plan: free
+      envVars:
+      - key: VUE_APP_URL
+        sync: false
+      - key: WEBHOOK_URL
+        sync: false
+      region: oregon
+      autoDeployTrigger: commit
+    databases:
+    - name: N8Ndata
+      databaseName: n8ndata_xt0h
+      user: n8ndata_xt0h_user
+      plan: free
+      region: oregon
+      ipAllowList:
+      - source: 0.0.0.0/0
+        description: everywhere
+      postgresMajorVersion: "18"
